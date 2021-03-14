@@ -1,5 +1,5 @@
 import sys
-sys.path.append('./modules/')
+sys.path.append('modules/')
 
 from collections import defaultdict
 from docopt import docopt
@@ -7,7 +7,7 @@ import logging
 import time
 from scipy.sparse import dok_matrix
 from utils_ import Space
-from gensim.models.word2vec import PathLineSentences
+from gensim.models.word2vec import LineSentence, PathLineSentences
 
 
 def main():
@@ -43,7 +43,8 @@ def main():
 
     # Build vocabulary
     logging.info("Building vocabulary")
-    sentences = PathLineSentences(corpDir)
+    sentences = LineSentence(corpDir)
+    # sentences = PathLineSentences(corpDir)
     vocabulary = sorted(list(set([word for sentence in sentences for word in sentence if len(sentence)>1]))) # Skip one-word sentences to avoid zero-vectors
     w2i = {w: i for i, w in enumerate(vocabulary)}
     
